@@ -1,0 +1,10 @@
+{
+  "pages": ["pages/index/index", "pages/avatar-cropper/index"],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "头像裁剪"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

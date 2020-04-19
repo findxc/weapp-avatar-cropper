@@ -1,0 +1,15 @@
+<!-- movable-area 是固定在屏幕中间的区域，movable-view 是可以缩放的整体屏幕部分 -->
+<movable-area scale-area class="movable-area" style="top:{{areaTop}}px" wx:if="{{imageSrc}}">
+  <!-- damping 设得很大是因为可能存在移动的时候回弹的问题 -->
+  <movable-view scale inertia damping="1000" direction="all" scale-min="1" style="width:{{initialWidth}}px;height:{{initialHeight}}px" x="{{initialX}}" y="{{initialY}}" bindchange="onChange" bindscale="onScale">
+    <image class="image" src="{{imageSrc}}" />
+  </movable-view>
+</movable-area>
+<!-- 这是裁剪框的样式 -->
+<view class="clip-box" style="top:{{areaTop}}px" />
+<view class="bottom-btns">
+  <button size="mini" bind:tap="onClickCancel">取消</button>
+  <button size="mini" bind:tap="onClickConfirm">完成</button>
+</view>
+<!-- 这个 canvas 是用来把导出裁剪后图片的 -->
+<canvas wx:if="{{canvasSize}}" type="2d" class="canvas" style="width:{{canvasSize}}px;height:{{canvasSize}}px;"></canvas>

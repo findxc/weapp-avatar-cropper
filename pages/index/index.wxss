@@ -1,0 +1,10 @@
+.wrapper {
+  padding: 24px;
+  text-align: center;
+}
+
+.avatar {
+  width: 600rpx;
+  height: 600rpx;
+  margin-top: 24px;
+}
