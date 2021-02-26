@@ -1,4 +1,10 @@
 <view class="wrapper">
   <button bind:tap="chooseImage">选择头像图片</button>
-  <image class="avatar" wx:if="{{avatar}}" mode="widthFix" src="{{avatar}}" />
+  <image 
+    class="avatar" 
+    wx:if="{{avatar}}" 
+    mode="widthFix" 
+    src="{{avatar}}" 
+    style="width:{{CLIP_WIDTH_RPX}}rpx;height:{{CLIP_HEIGHT_RPX}}rpx;"
+  />
 </view>

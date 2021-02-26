@@ -1,8 +1,6 @@
-.movable-area,
-.clip-box {
-  width: 600rpx;
-  height: 600rpx;
-  left: 75rpx;
+page {
+  /* 不加这句页面会上下左右可以滚动 */
+  overflow: hidden;
 }
 
 .clip-box {

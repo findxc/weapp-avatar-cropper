@@ -1,5 +1,8 @@
+import {CLIP_WIDTH_RPX, CLIP_HEIGHT_RPX} from '../constant'
 Page({
   data: {
+    CLIP_WIDTH_RPX,
+    CLIP_HEIGHT_RPX,
     avatar: '',
   },
   onShow() {
