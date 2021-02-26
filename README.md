@@ -2,7 +2,9 @@
 
 参照 [如何实现微信小程序图像剪切](https://juejin.im/post/5dba99ac518825644402e559) 这篇文章中的思路实现了头像裁剪。
 
-[点击这里](https://developers.weixin.qq.com/s/TM3zAJmP7RgG) 在微信开发者工具中预览效果。
+在 `pages/constant.js` 中可以修改裁剪框尺寸，支持矩形。
+
+[点击这里](https://developers.weixin.qq.com/s/KwkzOpm77aoa) 在微信开发者工具中预览效果。
 
 ## 实现时需要注意的问题
 
