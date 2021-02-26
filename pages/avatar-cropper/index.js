@@ -1,7 +1,11 @@
+import { CLIP_WIDTH_RPX, CLIP_HEIGHT_RPX } from '../constant'
 import { loadCanvasImage } from './util'
 
 Page({
   data: {
+    CLIP_WIDTH_RPX,
+    CLIP_HEIGHT_RPX,
+
     dpr: 2,
     // 用户选择的图片的地址
     imageSrc: '',
@@ -12,30 +16,34 @@ Page({
     initialX: 0,
     initialY: 0,
     initialScale: 1,
-    clipSize: 0,
+    clipWidth: 0,
+    clipHeight: 0,
 
     x: 0,
     y: 0,
     scale: 1,
 
-    canvasSize: 0,
+    // 存下这两个值是因为在 wxml 中有用到，来设置 canvas 宽高了
+    canvasWidth: 0,
+    canvasHeight: 0,
   },
   onLoad() {
     const imageSrc = this.options.url
 
     const { windowWidth, windowHeight, pixelRatio } = wx.getSystemInfoSync()
 
-    // 裁剪框是 600rpx，计算出对应的 px 值
-    const clipSize = (windowWidth / 750) * 600
+    // 裁剪框配置值是 rpx ，计算出对应的 px 值
+    const clipWidth = (windowWidth / 750) * CLIP_WIDTH_RPX
+    const clipHeight = (windowWidth / 750) * CLIP_HEIGHT_RPX
     // 计算出裁剪框应该距离顶部的值，以便定位
-    const areaTop = (windowHeight - clipSize) / 2
+    const areaTop = (windowHeight - clipHeight) / 2
 
     wx.getImageInfo({
       src: imageSrc,
       success: (res) => {
         const { width, height } = res
         // 在知道图片本身的宽高后，一开始需要缩放一下图片使得图片的宽或者高等于裁剪框尺寸
-        const scale = Math.max(clipSize / width, clipSize / height)
+        const scale = Math.max(clipWidth / width, clipHeight / height)
         const initialWidth = width * scale
         const initialHeight = height * scale
 
@@ -45,10 +53,11 @@ Page({
           areaTop,
           initialWidth,
           initialHeight,
-          initialX: (clipSize - initialWidth) / 2,
-          initialY: (clipSize - initialHeight) / 2,
+          initialX: (clipWidth - initialWidth) / 2,
+          initialY: (clipHeight - initialHeight) / 2,
           initialScale: scale,
-          clipSize,
+          clipWidth,
+          clipHeight,
         })
       },
     })
@@ -65,14 +74,24 @@ Page({
     wx.navigateBack()
   },
   onClickConfirm() {
-    const { dpr, imageSrc, x, y, initialScale, scale, clipSize } = this.data
+    const {
+      dpr,
+      imageSrc,
+      x,
+      y,
+      initialScale,
+      scale,
+      clipWidth,
+      clipHeight,
+    } = this.data
 
     const totalScale = scale * initialScale
     const sx = -x / totalScale
     const sy = -y / totalScale
-    const canvasSize = clipSize / totalScale
+    const canvasWidth = clipWidth / totalScale
+    const canvasHeight = clipHeight / totalScale
 
-    this.setData({ canvasSize })
+    this.setData({ canvasWidth, canvasHeight })
 
     const query = wx.createSelectorQuery()
     query
@@ -92,12 +111,12 @@ Page({
             img,
             sx,
             sy,
-            canvasSize,
-            canvasSize,
+            canvasWidth,
+            canvasHeight,
             0,
             0,
-            canvasSize,
-            canvasSize
+            canvasWidth,
+            canvasHeight
           )
 
           wx.canvasToTempFilePath({
